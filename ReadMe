@@ -1,5 +1,0 @@
-product: Product api
-Author: Meenakshisundaram
-setup:
-1.Install all package.json packages
-2. To run server - npm start
