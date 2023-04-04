@@ -7,6 +7,7 @@ const port = 8000;
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
+// url redirection 
 app.use('/', require('./routes'));
 
 

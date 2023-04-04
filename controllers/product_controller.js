@@ -2,10 +2,11 @@
 const product = require("../models/product")
 const mongoose = require("mongoose");
 
-
+// To create Product Entry
 module.exports.create = function (req, res) {
 
     product.findOne({}).sort({ "createdAt": -1 }).then((findID) => {
+        // Auto increment for id field
         req.body.product["id"] = findID ? findID.id + 1 : 1
         product.create(req.body.product).then((result) => {
 
@@ -28,6 +29,8 @@ module.exports.create = function (req, res) {
     })
 }
 
+
+// To get products
 module.exports.getProduct = (req, res) => {
     query = req.params? req.params : {}
     product.find(query).select('id name quantity -_id').then((result) => {
@@ -38,6 +41,7 @@ module.exports.getProduct = (req, res) => {
 }
 
 
+// To delete products
 module.exports.deleteProduct = (req, res) => {
     if (!req.body) {
         return res.status(200).send({data:{message:"Please send product id"}})
@@ -57,7 +61,7 @@ module.exports.deleteProduct = (req, res) => {
 }
 
 
-
+// To Update products
 module.exports.updateProduct = (req,res) =>{
 
     filter = req.params
