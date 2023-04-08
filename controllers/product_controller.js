@@ -32,9 +32,9 @@ module.exports.create = function (req, res) {
 
 // To get products
 module.exports.getProduct = (req, res) => {
-    query = req.params? req.params : {}
-    product.find(query).select('id name quantity -_id').then((result) => {
-        res.status(200).send(JSON.stringify(result))
+    product.find({}).select('id name quantity -_id').then((result) => {
+        data = {data:{products:result}}
+        res.status(200).send(data)
     })
 
     
@@ -68,7 +68,6 @@ module.exports.updateProduct = (req,res) =>{
     update={ $inc: { "quantity": req.query.number }}
 
     product.findOneAndUpdate(filter,update).then((result)=>{
-        console.log(result)
         data = {
             product: {
                 id:result.id,
