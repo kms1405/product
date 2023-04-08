@@ -33,50 +33,58 @@ module.exports.create = function (req, res) {
 // To get products
 module.exports.getProduct = (req, res) => {
     product.find({}).select('id name quantity -_id').then((result) => {
-        data = {data:{products:result}}
+        data = { data: { products: result } }
         res.status(200).send(data)
     })
 
-    
+
 }
 
 
 // To delete products
 module.exports.deleteProduct = (req, res) => {
     if (!req.body) {
-        return res.status(200).send({data:{message:"Please send product id"}})
+        return res.status(200).send({ data: { message: "Please send product id" } })
     }
     product.deleteOne(req.params).then((result) => {
-        if (result.deletedCount > 0){
-            return res.status(200).send({data: {
-                message: "product deleted"
-              }})
+        if (result.deletedCount > 0) {
+            return res.status(200).send({
+                data: {
+                    message: "product deleted"
+                }
+            })
         }
 
 
-        return res.status(200).send({data:{message:"product not found"}}) 
-        
+        return res.status(200).send({ data: { message: "product not found" } })
+
     })
 
 }
 
 
 // To Update products
-module.exports.updateProduct = (req,res) =>{
+module.exports.updateProduct = (req, res) => {
 
     filter = req.params
-    update={ $inc: { "quantity": req.query.number }}
+    update = { $inc: { "quantity": req.query.number } }
 
-    product.findOneAndUpdate(filter,update).then((result)=>{
+    product.findOneAndUpdate(filter, update).then((result) => {
+
+
+    })
+
+    product.findOne(filter).then((result) => {
         data = {
             product: {
-                id:result.id,
+                id: result.id,
                 name: result.name,
                 quantity: result.quantity
             }
         }
-        res.status(200).send({data:data})
+        res.status(200).send({ data: data })
     })
 
-    
+
+
 }
