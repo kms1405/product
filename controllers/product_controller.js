@@ -3,6 +3,8 @@ const product = require("../models/product")
 const mongoose = require("mongoose");
 
 // To create Product Entry
+// Method: POST
+// Endpoint: /products/create
 module.exports.create = function (req, res) {
 
     product.findOne({}).sort({ "createdAt": -1 }).then((findID) => {
@@ -31,6 +33,8 @@ module.exports.create = function (req, res) {
 
 
 // To get products
+// Method: GET
+// Endpoint: /products
 module.exports.getProduct = (req, res) => {
     product.find({}).select('id name quantity -_id').then((result) => {
         data = { data: { products: result } }
@@ -42,6 +46,8 @@ module.exports.getProduct = (req, res) => {
 
 
 // To delete products
+// Method: DELETE
+// Endpoint: /products/:ID
 module.exports.deleteProduct = (req, res) => {
     if (!req.body) {
         return res.status(200).send({ data: { message: "Please send product id" } })
@@ -64,6 +70,8 @@ module.exports.deleteProduct = (req, res) => {
 
 
 // To Update products
+// METHOD: POST
+// URL:/products/:id/update_quantity/?number=10
 module.exports.updateProduct = (req, res) => {
 
     filter = req.params

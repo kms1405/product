@@ -1,3 +1,4 @@
+// Import
 const express = require("express");
 const bodyParser = require('body-parser')
 const db = require("./config/mongoose");
@@ -11,6 +12,7 @@ app.use(bodyParser.json())
 app.use('/', require('./routes'));
 
 
+// server listen
 app.listen(port, function(err){
     if (err){
         console.log(`Error in running the server: ${err}`);
